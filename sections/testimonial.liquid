@@ -1,0 +1,250 @@
+ <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+  
+<style>
+
+.testimonial-slider {
+  width: 100%;
+  margin: 20px auto;
+}
+  .slick-next:before, .slick-prev:before {
+    color: #000;
+}
+
+  .testimonial-item {
+    background: #fff !important;
+    padding: 30px;
+    margin: 0px !important;
+     text-align: center;
+}
+
+.testimonial-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.rating {
+  margin-top: 10px;
+  font-size: 24px;
+}
+
+.star {
+  color: #FFD700; /* Gold color for stars */
+}
+  .testimonial-item img {
+    width: 10%;
+    margin: 0 auto;
+}
+  div#shopify-section-template--16248000577691__testimonial_Bh3tEt {
+    padding-top: 3%;
+    background: #f5f5f5;
+    padding-bottom: 3%;
+}
+  h2.collage-wrapper-title.inline-richtext.h0.scroll-trigger.animate--slide-in {
+    text-align: center;
+}
+  .testimonial_work {
+    width: 90%;
+    margin: 0 auto;
+}
+
+  
+
+.highlighted-slide {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px   8px 0 rgba(0, 0, 0, 0.2);
+  
+}
+</style>
+<div class="color-{{ section.settings.color_scheme }} gradient">
+ <div class="testimonial_work section-{{ section.id }}-padding">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="collage-wrapper-title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {{ section.settings.heading }}
+      </h2>
+    {%- endif -%}
+
+    
+<div class="testimonial-slider">  
+  
+      {% for block in section.blocks %}
+  <div class="testimonial-item">
+      <div class="rating">
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+    </div>
+    
+    <p>{{ block.settings.testimonial_text }}</p>
+    {% if block.settings.testimonial_image %}
+   <img src="{{ block.settings.testimonial_image | img_url: 'medium' }}" alt="{{ block.settings.testimonial_author }}">
+        {% endif %} 
+    <span>{{ block.settings.testimonial_author }}</span>
+  </div>
+      {% endfor %}
+  <!-- Add more testimonial items as needed -->
+</div>
+  </div>
+</div>
+
+
+<!-- Slick slider script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+{% comment %}
+<script>
+$(document).ready(function(){
+  var slider = $('.testimonial-slider');
+
+  // Initialize the slider
+  slider.slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    dots: true,
+    centerMode: true,
+    centerPadding: '0',
+    infinite: true,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1
+        }
+      }
+      // Add more breakpoints and settings as needed
+    ]
+  });
+
+  // Event handler to add a class to the center slide on initialization and after each change
+  slider.on('init afterChange', function(event, slick, currentSlide){
+    $('.testimonial-item').removeClass('highlighted-slide'); // Remove the class from all items
+    $('.slick-center').addClass('highlighted-slide'); // Add the class to the new center slide
+  });
+
+  // Trigger the initialization event manually to highlight the center slide on page load
+  slider.trigger('init');
+});
+
+
+
+</script>
+{% endcomment %}
+
+
+<script>
+$(document).ready(function(){
+  var slider = $('.testimonial-slider');
+  var totalSlides = slider.find('.testimonial-item').length;
+  var slidesToShow = totalSlides > 3 ? 3 : totalSlides;
+  var centerSlideIndex = Math.floor(slidesToShow / 2); // Calculate the index of the center slide
+
+  // Initialize the slider
+  slider.slick({
+    slidesToShow: slidesToShow,
+    slidesToScroll: 1,
+    dots: true,
+    centerMode: totalSlides <= 3, // Set center mode to true if total slides is less than or equal to 3
+    centerPadding: '0',
+    infinite: true,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1
+        }
+      }
+      // Add more breakpoints and settings as needed
+    ]
+  });
+
+  // Function to highlight the center slide
+  function highlightCenterSlide() {
+    $('.testimonial-item').removeClass('highlighted-slide'); // Remove the class from all items
+    $('.testimonial-item[data-slick-index="' + centerSlideIndex + '"]').addClass('highlighted-slide'); // Add the class to the center slide
+  }
+
+  // Event handler to highlight the center slide after each change
+  slider.on('afterChange', function(event, slick, currentSlide){
+    highlightCenterSlide(); // Highlight the center slide
+  });
+
+  // Trigger the highlight function manually to highlight the center slide on page load
+  highlightCenterSlide();
+});
+</script>
+
+
+
+{% schema %}
+{
+  "name": "Testimonial Section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "heading",
+      "default": "Testimonial"
+    },
+     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-1"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial_block",
+      "name": "Testimonial Block",
+      "settings": [
+          
+        {
+          "type": "textarea",
+          "label": "Testimonial Text",
+          "id": "testimonial_text",
+          "default": "This is a great product!"
+        },
+        {
+          "type": "image_picker",
+          "label": "Testimonial Image",
+          "id": "testimonial_image"
+        },
+        {
+          "type": "text",
+          "label": "Testimonial Author",
+          "id": "testimonial_author",
+          "default": "Anonymous"
+        }
+      ]
+    }
+  ],
+    "presets": [
+    {
+      "name": "Testimonial Section"
+    }
+  ]
+}
+{% endschema %}
