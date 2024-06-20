@@ -1,0 +1,2 @@
+# TECHSHOT
+Shopify tech store
