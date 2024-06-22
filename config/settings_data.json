@@ -9,7 +9,7 @@
 */
 {
   "current": {
-    "logo": "{{ shop.brand.square_logo }}",
+    "logo": "shopify:\/\/shop_images\/SHOT_1.svg",
     "logo_width": 90,
     "favicon": "{{ shop.brand.square_logo }}",
     "type_header_font": "assistant_n4",
